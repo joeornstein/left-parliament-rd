@@ -1,21 +1,22 @@
-#Close Elections and the Interest Rate Cost of Social Democracy
-#Regression Discontinuity estimates of the effect of social democratic plurality in parliament on bond yields
+# Close Elections and the Interest Rate Cost of Social Democracy
+# Regression Discontinuity estimates of the effect of social democratic plurality in parliament on bond yields
 
-#Version 2.2
+# Version 3.0
 
-#Last Updated by Joe Ornstein (March 1, 2019)
+# Last Updated by Joe Ornstein (February 3, 2020)
 
-#Change Log:
-#v2.2 - List of low-fragmentation and high-fragmentation country-years
-#v2.1 - Cleaned up code
-#v2.0 - Cleaned up code
-#v1.9 - New Depvar: Exchange rates (per SDR)
-#v1.8 - New Depvar: change in bond yields relative to OECD average
-#v1.7 - Communists included in 'socDemSeats'; heterogeneous Tfx by ideal point difference
-#v1.6 - Covariate balance tests and RD with covariate controls
-#v1.5 - Added post-1998 PECs and more historical bond yields
-#v1.4 - Cleaned up
-#v1.3 - Added ENPP Computations
+# Change Log:
+# v3.0 - Implementing JOP reviewer suggestions 
+# v2.2 - List of low-fragmentation and high-fragmentation country-years
+# v2.1 - Cleaned up code
+# v2.0 - Cleaned up code
+# v1.9 - New Depvar: Exchange rates (per SDR)
+# v1.8 - New Depvar: change in bond yields relative to OECD average
+# v1.7 - Communists included in 'socDemSeats'; heterogeneous Tfx by ideal point difference
+# v1.6 - Covariate balance tests and RD with covariate controls
+# v1.5 - Added post-1998 PECs and more historical bond yields
+# v1.4 - Cleaned up
+# v1.3 - Added ENPP Computations
 
 
 #Load Packages & Data -----------------------------------
@@ -24,14 +25,14 @@ library(magrittr)
 library(rdrobust)
 library(cowplot)
 
-#source("IntRateCostSocDem_preprocessing_v2_1.r") #Merge and Clean Dataset
+# source("IntRateCostSocDem_preprocessing_v2_1.r") #Merge and Clean Dataset
 elections <- read_csv("data/IntRateCostSocDem_dataset_v2_1.csv")
 
-#Drop Switzerland, because of the "Magic Formula"
+# Drop Switzerland, because of the "Magic Formula"
 elections %<>% filter(country_name != "Switzerland")
 
 
-#Section 1: How many elections are "close"? -------------------------------------------
+# Section 1: How many elections are "close"? -------------------------------------------
 
 elections %>%
   group_by(!is.na(bond.yield.t), 
@@ -39,10 +40,10 @@ elections %>%
   summarise(num = n())
 
 
-#Section 6.1:  Testing the Mechanism --------------------------------------------------
+# Section 4.1:  Testing the Mechanism --------------------------------------------------
 
-#Does a slight plurality of social democratic seats yield a discontinuity in probability of
-#having a social democratic party in your cabinet? (Depends on party fragmentation)
+# Does a slight plurality of social democratic seats yield a discontinuity in probability of
+# having a social democratic party in your cabinet? (Depends on party fragmentation)
 
 ggRDFirstStage <- function(enppThreshold){
   
@@ -52,10 +53,10 @@ ggRDFirstStage <- function(enppThreshold){
   nright1 <- ggright1 %>% filter(!is.na(cabinetLeft)) %>% nrow
   
   leftPanel <- ggplot() + 
-    geom_point(data = ggleft1, aes(x=leftPluralityPercentage,y=cabinetLeft)) +
-    geom_point(data = ggright1, aes(x=leftPluralityPercentage,y=cabinetLeft)) +
-    geom_smooth(data = ggleft1, aes(x=leftPluralityPercentage, y= cabinetLeft), se=F) +
-    geom_smooth(data = ggright1, aes(x=leftPluralityPercentage, y= cabinetLeft), se=F) +
+    geom_point(data = ggleft1, aes(x=leftPluralityPercentage,y=cabinetLeft), color = 'gray') +
+    geom_point(data = ggright1, aes(x=leftPluralityPercentage,y=cabinetLeft), color = 'gray') +
+    geom_smooth(data = ggleft1, aes(x=leftPluralityPercentage, y= cabinetLeft), method = 'loess', se=F, color = 'black') +
+    geom_smooth(data = ggright1, aes(x=leftPluralityPercentage, y= cabinetLeft), method = 'loess', se=F, color = 'black') +
     xlab("Left Party Plurality") + ylab("Left Party in Cabinet") + 
     ggtitle(paste0("Low Fragmentation (n = ", nleft1+nright1, ")")) +
     xlim(-1,1) + ylim(0,1) + theme_bw() + 
@@ -67,10 +68,10 @@ ggRDFirstStage <- function(enppThreshold){
   nright2 <- ggright2 %>% filter(!is.na(cabinetLeft)) %>% nrow
   
   rightPanel <- ggplot() + 
-    geom_point(data = ggleft2, aes(x=leftPluralityPercentage,y=cabinetLeft)) +
-    geom_point(data = ggright2, aes(x=leftPluralityPercentage,y=cabinetLeft)) +
-    geom_smooth(data = ggleft2, aes(x=leftPluralityPercentage, y= cabinetLeft), se=F) +
-    geom_smooth(data = ggright2, aes(x=leftPluralityPercentage, y= cabinetLeft), se=F) +
+    geom_point(data = ggleft2, aes(x=leftPluralityPercentage,y=cabinetLeft), color = 'gray') +
+    geom_point(data = ggright2, aes(x=leftPluralityPercentage,y=cabinetLeft), color = 'gray') +
+    geom_smooth(data = ggleft2, aes(x=leftPluralityPercentage, y= cabinetLeft), method = 'loess', se=F, color = 'black') +
+    geom_smooth(data = ggright2, aes(x=leftPluralityPercentage, y= cabinetLeft), method = 'loess', se=F, color = 'black') +
     xlab("Left Party Plurality") + ylab("Left Party in Cabinet") + 
     ggtitle(paste0("High Fragmentation (n = ", nleft2+nright2, ")")) +
     xlim(-1,1) + ylim(0,1) + theme_bw() + 
@@ -83,7 +84,8 @@ ggRDFirstStage <- function(enppThreshold){
 enppThreshold <- 3.5
 ggRDFirstStage(enppThreshold)
 
-ggsave("../Paper/Figures/firstStageFigure.png", scale = 2, width = 4, height = 2)
+ggsave("paper/figures/Figure2.png", scale = 2, width = 4, height = 2)
+
 
 Y_all <- elections$cabinetLeft
 X_all <- elections$leftPluralityPercentage
@@ -126,17 +128,17 @@ paste0("[",rdModelHighENPP$coef['Bias-Corrected',] - 1.96 * rdModelHighENPP$se['
        ", ", rdModelHighENPP$coef['Bias-Corrected',] + 1.96 * rdModelHighENPP$se['Robust',], "]")
 
 
-#Section 6.2:  Balance Tests -------------------------------------------------------------
+#Section 4.2:  Balance Tests -------------------------------------------------------------
 
 ggBalance <- function(enppThreshold){
   
   ggleft <- elections %>% filter(enpp < enppThreshold, leftPluralityPercentage < 0)
   ggright <- elections %>% filter(enpp < enppThreshold, leftPluralityPercentage > 0)
   gdp_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=gdppc_WDI)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=gdppc_WDI)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= gdppc_WDI), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= gdppc_WDI), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=gdppc_WDI)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=gdppc_WDI)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= gdppc_WDI), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= gdppc_WDI), se=F) +
     xlab("Social Democratic Plurality") + ylab("GDP Per Capita") + 
     ggtitle("GDP Per Capita") +
     ylim(elections %>% filter(enpp < enppThreshold) %>% use_series(gdppc_WDI) %>% min,
@@ -144,10 +146,10 @@ ggBalance <- function(enppThreshold){
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
   
   polity_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=polity2_P4)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=polity2_P4)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= polity2_P4), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= polity2_P4), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=polity2_P4)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=polity2_P4)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= polity2_P4), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= polity2_P4), se=F) +
     xlab("Social Democratic Plurality") + ylab("Polity IV") + 
     ggtitle("Polity IV") +
     ylim(elections %>% filter(enpp < enppThreshold) %>% use_series(polity2_P4) %>% min,
@@ -155,10 +157,10 @@ ggBalance <- function(enppThreshold){
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
   
   population_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=logpop)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=logpop)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= logpop), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= logpop), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=logpop)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=logpop)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= logpop), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= logpop), se=F) +
     xlab("Social Democratic Plurality") + ylab("Log Population") + 
     ggtitle("Log Population") +
     ylim(elections %>% filter(enpp < enppThreshold) %>% use_series(logpop) %>% min,
@@ -166,10 +168,10 @@ ggBalance <- function(enppThreshold){
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
   
   debt_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=debt_cgov_WDI)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=debt_cgov_WDI)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= debt_cgov_WDI), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= debt_cgov_WDI), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=debt_cgov_WDI)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=debt_cgov_WDI)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= debt_cgov_WDI), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= debt_cgov_WDI), se=F) +
     xlab("Social Democratic Plurality") + ylab("Debt/GDP") + 
     ggtitle("Central Government Debt (% of GDP)") +
     ylim(elections %>% filter(enpp < enppThreshold) %>% use_series(debt_cgov_WDI) %>% min,
@@ -177,10 +179,10 @@ ggBalance <- function(enppThreshold){
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
   
   expenditures_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=exp_WDI)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=exp_WDI)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= exp_WDI), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= exp_WDI), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=exp_WDI)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=exp_WDI)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= exp_WDI), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= exp_WDI), se=F) +
     xlab("Social Democratic Plurality") + ylab("Government Expenditures/GDP") + 
     ggtitle("Government Expenditures (% of GDP)") +
     ylim(elections %>% filter(enpp < enppThreshold) %>% use_series(exp_WDI) %>% min,
@@ -188,10 +190,10 @@ ggBalance <- function(enppThreshold){
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
   
   taxes_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=tax_rev_WDI)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=tax_rev_WDI)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= tax_rev_WDI), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= tax_rev_WDI), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=tax_rev_WDI)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=tax_rev_WDI)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= tax_rev_WDI), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= tax_rev_WDI), se=F) +
     xlab("Social Democratic Plurality") + ylab("Tax Revenue/GDP") + 
     ggtitle("Tax Revenue (% of GDP)") +
     ylim(elections %>% filter(enpp < enppThreshold) %>% use_series(tax_rev_WDI) %>% min,
@@ -199,10 +201,10 @@ ggBalance <- function(enppThreshold){
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
   
   inflation_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=inflation_WDI)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=inflation_WDI)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= inflation_WDI), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= inflation_WDI), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=inflation_WDI)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=inflation_WDI)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= inflation_WDI), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= inflation_WDI), se=F) +
     xlab("Social Democratic Plurality") + ylab("Inflation") + 
     ggtitle("Inflation (Annual % Change)") +
     ylim(elections %>% filter(enpp < enppThreshold) %>% use_series(inflation_WDI) %>% min,
@@ -210,10 +212,10 @@ ggBalance <- function(enppThreshold){
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
   
   oecd_panel <- ggplot() + 
-    geom_point(data = ggleft, aes(x=leftPluralityPercentage,y=oecd.average.tplus1 - oecd.average.t)) +
-    geom_point(data = ggright, aes(x=leftPluralityPercentage,y=oecd.average.tplus1 - oecd.average.t)) +
-    geom_smooth(data = ggleft, aes(x=leftPluralityPercentage, y= oecd.average.tplus1 - oecd.average.t), se=F) +
-    geom_smooth(data = ggright, aes(x=leftPluralityPercentage, y= oecd.average.tplus1 - oecd.average.t), se=F) +
+    geom_point(color = 'gray', data = ggleft, aes(x=leftPluralityPercentage,y=oecd.average.tplus1 - oecd.average.t)) +
+    geom_point(color = 'gray', data = ggright, aes(x=leftPluralityPercentage,y=oecd.average.tplus1 - oecd.average.t)) +
+    geom_smooth(color = 'black', data = ggleft, aes(x=leftPluralityPercentage, y= oecd.average.tplus1 - oecd.average.t), se=F) +
+    geom_smooth(color = 'black', data = ggright, aes(x=leftPluralityPercentage, y= oecd.average.tplus1 - oecd.average.t), se=F) +
     xlab("Social Democratic Plurality") + ylab("Bond Yield Change") + 
     ggtitle("OECD Average Bond Yield Change") +
     xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
@@ -225,7 +227,7 @@ ggBalance <- function(enppThreshold){
 
 elections$logpop <- log(elections$pop_WDI)
 ggBalance(enppThreshold)
-ggsave("../Paper/Figures/balancePlots.png", scale = 2)
+ggsave("paper/figures/Figure3.png", scale = 2)
 
 rdBalance <- function(enppThreshold, covariate){
   
@@ -268,7 +270,7 @@ elections$oecd.movement <- elections$oecd.average.tplus1 - elections$oecd.averag
 oecdBalance <- rdBalance(enppThreshold, covariate = "oecd.movement")
 summary(oecdBalance) 
 
-#Section 6.3: Bond Market Regression Discontinuity -----------------------------------------------------
+#Section 4.3: Bond Market Regression Discontinuity -----------------------------------------------------
 
 ggRD <- function(df, enppThreshold, depvar, yearSubset = 1940:2020, ylabel = "Bond Yield Change (1 Month)"){
   
@@ -281,10 +283,10 @@ ggRD <- function(df, enppThreshold, depvar, yearSubset = 1940:2020, ylabel = "Bo
   nright1 <- ggright1 %>% filter(!is.na(Y)) %>% nrow
   
   leftPanel <- ggplot() + 
-    geom_point(data = ggleft1, aes(x=leftPluralityPercentage,y=Y),size=0.75) +
-    geom_point(data = ggright1, aes(x=leftPluralityPercentage,y=Y),size=0.75) +
-    geom_smooth(data = ggleft1, aes(x=leftPluralityPercentage, y= Y), se=F) +
-    geom_smooth(data = ggright1, aes(x=leftPluralityPercentage, y=Y), se=F) +
+    geom_point(color = 'gray', data = ggleft1, aes(x=leftPluralityPercentage,y=Y),size=0.75) +
+    geom_point(color = 'gray', data = ggright1, aes(x=leftPluralityPercentage,y=Y),size=0.75) +
+    geom_smooth(color = 'black', data = ggleft1, aes(x=leftPluralityPercentage, y= Y), se=T) +
+    geom_smooth(color = 'black', data = ggright1, aes(x=leftPluralityPercentage, y=Y), se=T) +
     xlab("Left Party Plurality") + ylab(ylabel) + 
     ggtitle(paste0("Low Fragmentation (n = ", nleft1+nright1, ")")) +
     xlim(-1,1) + ylim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
@@ -294,10 +296,10 @@ ggRD <- function(df, enppThreshold, depvar, yearSubset = 1940:2020, ylabel = "Bo
   ggright2 <- df %>% filter(enpp > enppThreshold, leftPluralityPercentage > 0, election_year %in% yearSubset)
   nright2 <- ggright2 %>% filter(!is.na(Y)) %>% nrow
   rightPanel <- ggplot() + 
-    geom_point(data = ggleft2, aes(x=leftPluralityPercentage,y=Y), size = 0.75) +
-    geom_point(data = ggright2, aes(x=leftPluralityPercentage,y=Y), size = 0.75) +
-    geom_smooth(data = ggleft2, aes(x=leftPluralityPercentage, y= Y), se=F) +
-    geom_smooth(data = ggright2, aes(x=leftPluralityPercentage, y= Y), se=F) +
+    geom_point(color = 'gray', data = ggleft2, aes(x=leftPluralityPercentage,y=Y), size = 0.75) +
+    geom_point(color = 'gray', data = ggright2, aes(x=leftPluralityPercentage,y=Y), size = 0.75) +
+    geom_smooth(color = 'black', data = ggleft2, aes(x=leftPluralityPercentage, y= Y), se=T) +
+    geom_smooth(color = 'black', data = ggright2, aes(x=leftPluralityPercentage, y= Y), se=T) +
     xlab("Left Party Plurality") + ylab(ylabel) + 
     ggtitle(paste0("High Fragmentation (n = ", nleft2+nright2, ")")) +
     xlim(-1,1) + ylim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
@@ -309,7 +311,7 @@ elections$bond.market.response <- (elections$bond.yield.tplus1 - elections$bond.
 
 ggRD(elections, enppThreshold, depvar = "bond.market.response")
 
-ggsave("../Paper/Figures/interestRateRDFigure.png", scale = 2, width = 4, height = 2)
+ggsave("paper/figures/Figure4.png", scale = 2, width = 4, height = 2)
 
 
 Y_all <- elections$bond.market.response
@@ -356,73 +358,32 @@ paste0("[",rdModelHighENPP$coef['Bias-Corrected',] - 1.96 * rdModelHighENPP$se['
 
 
 
-#Section 6.4:  Dynamic RD -----------------------------------------------------------
 
-dynamicRDBondYields <- function(df,
-                            enpp.min = 0, enpp.max = 11, 
-                            ipd.min = 0, ipd.max = 8,
-                            ymin = NA, ymax = NA,
-                            title = "Dynamic RD Estimates"){
-  
-  df %<>% 
-    filter(enpp > enpp.min, enpp < enpp.max) %>%
-    filter(idealPointDifference > ipd.min, idealPointDifference < ipd.max)
-  
-  t <- seq(-12,12,1)
-  fig2data <- tibble(t, RDestimate = NA, RDse = NA)
-  
-  for (i in 1:nrow(fig2data)){
-    t <- fig2data$t[i] %>% as.character %>% 
-      paste0("plus",.) %>%
-      str_replace("-","minus") %>%
-      str_replace("plusminus","minus")
-    
-    if(t == "plus0") {next} #Don't compute for t = 0
-    
-    df$bond.yield.change <- df[,paste0("bond.yield.t",t)] %>% unlist %>% 
-      subtract(df$bond.yield.t)
-    
-    df %<>% filter(!is.na(bond.yield.change), !is.na(leftPluralityPercentage))
-    
-    Y <- df$bond.yield.change
-    X <- df$leftPluralityPercentage
-    
-    #rdplot(y = Y, x = X, p = 1) 
-    fig2data$RDestimate[i] <- rdrobust(y = Y, x = X, c = 0)$coef[1]
-    fig2data$RDse[i] <- rdrobust(y = Y, x = X, c = 0)$se[2]
-    
-  }
-  
-  ggplot(fig2data, aes(x=t, y=RDestimate)) + 
-    geom_point() + geom_line() + 
-    geom_errorbar(aes(ymin = RDestimate - 1.96 * RDse, 
-                      ymax = RDestimate + 1.96 * RDse), width = 0) +
-    geom_hline(yintercept=0) +
-    geom_vline(xintercept=0, linetype="dashed") +
-    xlab("Months Before/After Election") +
-    ylab("Estimated Effect on Bond Yields") +
-    scale_y_continuous(limits = c(ymin, ymax)) +
-    ggtitle(paste0(title, ", n = ", nrow(df))) +
-    theme_bw()
+# Section 5:  Heterogeneous Treatment Effects -------------------------------------------------------
+
+# Heterogeneous Treatment Effects by Ideological Distance
+df <- tibble(ipd.min = seq(0,3.5,0.25),
+             estimate = NA,
+             ci95low = NA,
+             ci95high = NA,
+             n = NA)
+for(i in 1:nrow(df)){
+  rdResults <- getRDEstimate(enppThreshold = enppThreshold, ipd.min = df$ipd.min[i], depvar = "bond.market.response")
+  df$estimate[i] <- rdResults[1]
+  df$ci95low[i] <- rdResults[2]
+  df$ci95high[i] <- rdResults[3]
+  df$n[i] <- rdResults[4]
 }
 
-dynamicRDLowENPP <- dynamicRDBondYields(df = elections, enpp.min = 0, enpp.max = enppThreshold, 
-                                    title = "Low Fragmentation")
-dynamicRDHighENPP <- dynamicRDBondYields(df = elections, enpp.min = enppThreshold, enpp.max = 11,
-                                     title = "High Fragmentation")
-plot_grid(dynamicRDLowENPP, dynamicRDHighENPP, nrow = 2)
-ggsave("../Paper/Figures/dynamicRD.png", scale = 1.5)
+ggplot(df, aes(x=ipd.min, y=estimate)) + geom_point() +
+  geom_errorbar(aes(ymin = ci95low, ymax = ci95high), width = 0) +
+  geom_hline(yintercept = 0, linetype = 'dashed') +
+  theme_bw() + xlab("Minimum Ideological Distance") + ylab("Estimate")
+
+ggsave("paper/figures/Figure5.png", scale = 1)
 
 
-
-#Could Include This?
-#dynamicRDBondYields(df = elections, enpp.min = 0, enpp.max = enppThreshold, ipd.min = 2)
-
-
-
-#Section 7:  Heterogeneous Treatment Effects -------------------------------------------------------
-
-#Vary Minimum Year
+# Heterogeneous Treatment EFfect, Varying Historical Era
 getRDEstimate <- function(enppThreshold, ipd.min = 0, yearSubset = 1940:2020, depvar){
   
   df <- elections %>% filter(enpp < enppThreshold, 
@@ -464,32 +425,10 @@ ggplot(df, aes(x=yearMin, y=estimate)) + geom_point() +
   geom_hline(yintercept = 0, linetype = 'dashed') +
   theme_bw() + xlab("Year") + ylab("Estimate")
 
-ggsave("../Paper/Figures/rdEstimateVaryingYear.png", scale = 1)
+ggsave("paper/figures/Figure6.png", scale = 1)
 
 
-#Heterogeneous Treatment Effects by Ideological Distance
-df <- tibble(ipd.min = seq(0,3.5,0.25),
-             estimate = NA,
-             ci95low = NA,
-             ci95high = NA,
-             n = NA)
-for(i in 1:nrow(df)){
-  rdResults <- getRDEstimate(enppThreshold = enppThreshold, ipd.min = df$ipd.min[i], depvar = "bond.market.response")
-  df$estimate[i] <- rdResults[1]
-  df$ci95low[i] <- rdResults[2]
-  df$ci95high[i] <- rdResults[3]
-  df$n[i] <- rdResults[4]
-}
-
-ggplot(df, aes(x=ipd.min, y=estimate)) + geom_point() +
-  geom_errorbar(aes(ymin = ci95low, ymax = ci95high), width = 0) +
-  geom_hline(yintercept = 0, linetype = 'dashed') +
-  theme_bw() + xlab("Minimum Ideological Distance") + ylab("Estimate")
-
-ggsave("../Paper/Figures/rdEstimateVaryingIdeologyDistance.png", scale = 1)
-
-
-#Appendix A: Low Fragmentation and High Fragmentation Country-Years ------------------------------
+# Appendix A.1: Low Fragmentation and High Fragmentation Country-Years ------------------------------
 
 elections %>%
   filter(!is.na(bond.yield.t),
@@ -509,11 +448,6 @@ ggdat <- elections %>%
   filter(!is.na(bond.yield.t)) %>%
   mutate(country_year = paste0(country_name_short, election_year)) 
 
-# ggplot(ggdat, aes(x = factor(country_name), y=enpp,label=country_year)) + geom_text() +
-#   xlab("Country") + ylab("ENPP") + theme_bw() + geom_hline(yintercept=3.5, linetype='dashed')
-# 
-
-
 ggplot(ggdat, aes(x = enpp, y=factor(country_name))) + geom_point() +
   xlab("ENPP") + ylab("Country") + theme_bw() + geom_vline(xintercept=3.5, linetype='dashed')
 
@@ -529,18 +463,10 @@ ggdat$country_name <- factor(ggdat$country_name, levels = correctOrder)
 ggplot(ggdat, aes(x = enpp, y=country_name)) + geom_point() +
   xlab("ENPP") + ylab("Country") + theme_bw() + geom_vline(xintercept=3.5, linetype='dashed')
 
-# ggplot(ggdat, aes(x = enpp, y=factor(country_name), label=election_year)) + geom_text() +
-#   xlab("ENPP") + ylab("Country") + theme_bw() + geom_vline(xintercept=3.5, linetype='dashed')
+ggsave("paper/figures/Figure7.png", scale = 1.1)
 
-# ggplot(ggdat, aes(x = election_year, y=enpp, label=country_name_short)) + geom_text() +
-#   xlab("Year") + ylab("ENPP") + theme_bw() + geom_hline(yintercept=3.5, linetype='dashed')
-# 
-# ggplot(ggdat, aes(x = enpp, y=election_year, label=country_name_short)) + geom_text() +
-#   xlab("ENPP") + ylab("Year") + theme_bw() + geom_vline(xintercept=3.5, linetype='dashed')
 
-ggsave("LowFragHighFrag.png", scale = 1.1)
-
-#Appendix A.1: Vary the ENPP Threshold -------------------------------------------------------------
+# Appendix A.1: Vary the ENPP Threshold -------------------------------------------------------------
 
 df <- tibble(enppThreshold = seq(2.5,12,0.1),
              estimate = NA,
@@ -562,12 +488,11 @@ ggplot(df, aes(x=enppThreshold, y=estimate)) + geom_point() +
   theme_bw() + xlab("Maximum ENPP") + ylab("Estimate") +
   scale_x_continuous(breaks = 1:12)
 
-ggsave("../Paper/Figures/rdEstimateVaryingENPP.png", scale = 1)
+ggsave("paper/figures/Figure8.png", scale = 1)
 
 
+# Appendix A.2: RD with covariates --------------------------------------------
 
-
-#Appendix A.2: RD with covariates --------------------------------------------
 rdData <- elections %>% filter(!is.na(bond.market.response),
                                !is.na(gdppc_WDI),
                                !is.na(logpop), 
@@ -622,7 +547,8 @@ paste0("[",rdWCovsHighENPP$coef['Bias-Corrected',] - 1.96 * rdWCovsHighENPP$se['
 
 
 
-#Appendix A.3: Sensitivity to Bandwidth -------------------------------------
+# Appendix A.3: Sensitivity to Bandwidth -------------------------------------
+
 rdData <- elections %>% filter(enpp < enppThreshold)
 
 Y <- rdData$bond.market.response
@@ -652,11 +578,11 @@ ggplot(df, aes(x=h, y=estimate)) + geom_point(colour = 'black') +
   geom_hline(yintercept = 0, linetype = 'dashed') +
   theme_bw() + xlab("Bandwidth") + ylab("Estimate")
 
-ggsave("../Paper/Figures/bandwidthSensitivity.png", scale = 1)
+ggsave("paper/figures/Figure9.png", scale = 1)
 
 
 
-#Appendix A.4: Sensitivity to Polynomial Order / Kernel ------------------------------------------------------
+# Appendix A.4: Sensitivity to Polynomial Order / Kernel ------------------------------------------------------
 
 rdData <- elections
 
@@ -708,4 +634,59 @@ QuadraticUniformHighENPP$coef["Bias-Corrected",]
 
 
 
+# Section A.5:  Dynamic RD -----------------------------------------------------------
 
+dynamicRDBondYields <- function(df,
+                                enpp.min = 0, enpp.max = 11, 
+                                ipd.min = 0, ipd.max = 8,
+                                ymin = NA, ymax = NA,
+                                title = "Dynamic RD Estimates"){
+  
+  df %<>% 
+    filter(enpp > enpp.min, enpp < enpp.max) %>%
+    filter(idealPointDifference > ipd.min, idealPointDifference < ipd.max)
+  
+  t <- seq(-12,12,1)
+  fig2data <- tibble(t, RDestimate = NA, RDse = NA)
+  
+  for (i in 1:nrow(fig2data)){
+    t <- fig2data$t[i] %>% as.character %>% 
+      paste0("plus",.) %>%
+      str_replace("-","minus") %>%
+      str_replace("plusminus","minus")
+    
+    if(t == "plus0") {next} #Don't compute for t = 0
+    
+    df$bond.yield.change <- df[,paste0("bond.yield.t",t)] %>% unlist %>% 
+      subtract(df$bond.yield.t)
+    
+    df %<>% filter(!is.na(bond.yield.change), !is.na(leftPluralityPercentage))
+    
+    Y <- df$bond.yield.change
+    X <- df$leftPluralityPercentage
+    
+    #rdplot(y = Y, x = X, p = 1) 
+    fig2data$RDestimate[i] <- rdrobust(y = Y, x = X, c = 0)$coef[1]
+    fig2data$RDse[i] <- rdrobust(y = Y, x = X, c = 0)$se[2]
+    
+  }
+  
+  ggplot(fig2data, aes(x=t, y=RDestimate)) + 
+    geom_point() + geom_line() + 
+    geom_errorbar(aes(ymin = RDestimate - 1.96 * RDse, 
+                      ymax = RDestimate + 1.96 * RDse), width = 0) +
+    geom_hline(yintercept=0) +
+    geom_vline(xintercept=0, linetype="dashed") +
+    xlab("Months Before/After Election") +
+    ylab("Estimated Effect on Bond Yields") +
+    scale_y_continuous(limits = c(ymin, ymax)) +
+    ggtitle(paste0(title, ", n = ", nrow(df))) +
+    theme_bw()
+}
+
+dynamicRDLowENPP <- dynamicRDBondYields(df = elections, enpp.min = 0, enpp.max = enppThreshold, 
+                                        title = "Low Fragmentation")
+dynamicRDHighENPP <- dynamicRDBondYields(df = elections, enpp.min = enppThreshold, enpp.max = 11,
+                                         title = "High Fragmentation")
+plot_grid(dynamicRDLowENPP, dynamicRDHighENPP, nrow = 2)
+ggsave("paper/figures/Figure10.png", scale = 1.5)
