@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.24)  3 DEC 2018 16:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.24)  11 MAR 2020 11:16
 entering extended mode
-**./InterestRateCostOfSocialDemocracy_v1_2.tex
-(InterestRateCostOfSocialDemocracy_v1_2.tex
+**./InterestRateCostOfSocialDemocracy.tex
+(InterestRateCostOfSocialDemocracy.tex
 LaTeX2e <2018-04-01> patch level 5
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\article.c
@@ -98,6 +98,47 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
+("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\mathtools\math
+tools.sty"
+Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
+
+("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\keyva
+l.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks21
+)
+("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\calc.sty
+"
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count100
+\calc@Bcount=\count101
+\calc@Adimen=\dimen112
+\calc@Bdimen=\dimen113
+\calc@Askip=\skip46
+\calc@Bskip=\skip47
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count102
+\calc@Cskip=\skip48
+)
+("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\mathtools\mhse
+tup.sty"
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count103
+\l_MT_multwidth_dim=\dimen114
+\origjot=\skip49
+\l_MT_shortvdotswithinadjustabove_dim=\dimen115
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen116
+\l_MT_above_intertext_sep=\dimen117
+\l_MT_below_intertext_sep=\dimen118
+\l_MT_above_shortintertext_sep=\dimen119
+\l_MT_below_shortintertext_sep=\dimen120
+)
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\amsfo
 nts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
@@ -114,11 +155,6 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 icx.sty"
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\keyva
-l.sty"
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks21
-)
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graph
 ics.sty"
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
@@ -137,16 +173,16 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 dftex.def"
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen112
-\Gin@req@width=\dimen113
+\Gin@req@height=\dimen121
+\Gin@req@width=\dimen122
 )
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\natbib\natbib.
 sty"
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip46
-\bibsep=\skip47
+\bibhang=\skip50
+\bibsep=\skip51
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count100
+\c@NAT@ctr=\count104
 )
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\rotat
 ing.sty"
@@ -156,9 +192,9 @@ Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 y"
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\c@r@tfl@t=\count101
-\rotFPtop=\skip48
-\rotFPbot=\skip49
+\c@r@tfl@t=\count105
+\rotFPtop=\skip52
+\rotFPbot=\skip53
 \rot@float@box=\box28
 \rot@mess@toks=\toks22
 )
@@ -224,9 +260,9 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 ions.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen114
-\Hy@linkcounter=\count102
-\Hy@pagecounter=\count103
+\@linkdim=\dimen123
+\Hy@linkcounter=\count106
+\Hy@pagecounter=\count107
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\pd1en
 c.def"
@@ -234,7 +270,7 @@ File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count104
+\Hy@SavedSpaceFactor=\count108
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\00miktex\hyper
 ref.cfg"
@@ -247,17 +283,17 @@ Package hyperref Info: Plain pages OFF on input line 4524.
 Package hyperref Info: Backreferencing OFF on input line 4529.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4762.
-\c@Hy@tempcnt=\count105
+\c@Hy@tempcnt=\count109
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5115.
-\XeTeXLinkMargin=\dimen115
-\Fld@menulength=\count106
-\Field@Width=\dimen116
-\Fld@charsize=\dimen117
+\XeTeXLinkMargin=\dimen124
+\Fld@menulength=\count110
+\Field@Width=\dimen125
+\Fld@charsize=\dimen126
 Package hyperref Info: Hyper figures OFF on input line 6369.
 Package hyperref Info: Link nesting OFF on input line 6374.
 Package hyperref Info: Hyper index ON on input line 6377.
@@ -267,17 +303,17 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6394.
 Package hyperref Info: PDF/A mode OFF on input line 6399.
 LaTeX Info: Redefining \ref on input line 6439.
 LaTeX Info: Redefining \pageref on input line 6443.
-\Hy@abspage=\count107
-\c@Item=\count108
-\c@Hfootnote=\count109
+\Hy@abspage=\count111
+\c@Item=\count112
+\c@Hfootnote=\count113
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\hpdft
 ex.def"
 File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
-\Fld@listcount=\count110
-\c@bookmark@seq@number=\count111
+\Fld@listcount=\count114
+\c@bookmark@seq@number=\count115
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\rerun
 filecheck.sty"
@@ -285,29 +321,29 @@ Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip50
+\Hy@SectionHShift=\skip54
 )
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\appendix\appen
 dix.sty"
 Package: appendix 2009/09/02 v1.2b extra appendix facilities
-\c@@pps=\count112
-\c@@ppsavesec=\count113
-\c@@ppsaveapp=\count114
+\c@@pps=\count116
+\c@@ppsavesec=\count117
+\c@@ppsaveapp=\count118
 )
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\geometry\geome
 try.sty"
 Package: geometry 2018/04/16 v5.8 Page Geometry
-\Gm@cnth=\count115
-\Gm@cntv=\count116
-\c@Gm@tempcnt=\count117
-\Gm@bindingoffset=\dimen118
-\Gm@wd@mp=\dimen119
-\Gm@odd@mp=\dimen120
-\Gm@even@mp=\dimen121
-\Gm@layoutwidth=\dimen122
-\Gm@layoutheight=\dimen123
-\Gm@layouthoffset=\dimen124
-\Gm@layoutvoffset=\dimen125
+\Gm@cnth=\count119
+\Gm@cntv=\count120
+\c@Gm@tempcnt=\count121
+\Gm@bindingoffset=\dimen127
+\Gm@wd@mp=\dimen128
+\Gm@odd@mp=\dimen129
+\Gm@even@mp=\dimen130
+\Gm@layoutwidth=\dimen131
+\Gm@layoutheight=\dimen132
+\Gm@layouthoffset=\dimen133
+\Gm@layoutvoffset=\dimen134
 \Gm@dimlist=\toks23
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\geometry\geome
@@ -315,37 +351,37 @@ try.cfg"))
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\setspace\setsp
 ace.sty"
 Package: setspace 2011/12/19 v6.7a set line spacing
-) (InterestRateCostOfSocialDemocracy_v1_2.aux)
-\openout1 = `InterestRateCostOfSocialDemocracy_v1_2.aux'.
+) (InterestRateCostOfSocialDemocracy.aux)
+\openout1 = `InterestRateCostOfSocialDemocracy.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pd
 f.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count118
-\scratchdimen=\dimen126
+\scratchcounter=\count122
+\scratchdimen=\dimen135
 \scratchbox=\box29
-\nofMPsegments=\count119
-\nofMParguments=\count120
+\nofMPsegments=\count123
+\nofMParguments=\count124
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count121
-\MPscratchDim=\dimen127
-\MPnumerator=\count122
-\makeMPintoPDFobject=\count123
+\MPscratchCnt=\count125
+\MPscratchDim=\dimen136
+\MPnumerator=\count126
+\makeMPintoPDFobject=\count127
 \everyMPtoPDFconversion=\toks25
 )
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epsto
@@ -364,7 +400,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 \AtBeginShipoutBox=\box30
-Package hyperref Info: Link coloring OFF on input line 22.
+Package hyperref Info: Link coloring OFF on input line 26.
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\namer
 ef.sty"
@@ -374,15 +410,15 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 titlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count124
+\c@section@level=\count128
 )
-LaTeX Info: Redefining \ref on input line 22.
-LaTeX Info: Redefining \pageref on input line 22.
-LaTeX Info: Redefining \nameref on input line 22.
- (InterestRateCostOfSocialDemocracy_v1_2.out)
-(InterestRateCostOfSocialDemocracy_v1_2.out)
+LaTeX Info: Redefining \ref on input line 26.
+LaTeX Info: Redefining \pageref on input line 26.
+LaTeX Info: Redefining \nameref on input line 26.
+ (InterestRateCostOfSocialDemocracy.out)
+(InterestRateCostOfSocialDemocracy.out)
 \@outlinefile=\write3
-\openout3 = `InterestRateCostOfSocialDemocracy_v1_2.out'.
+\openout3 = `InterestRateCostOfSocialDemocracy.out'.
 
 
 *geometry* driver: auto-detecting
@@ -419,146 +455,151 @@ LaTeX Info: Redefining \nameref on input line 22.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 26.
+LaTeX Font Info:    Try loading font information for U+msa on input line 30.
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.
 fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 26.
+LaTeX Font Info:    Try loading font information for U+msb on input line 30.
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.
 fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 26.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 30.
 
 ("C:\Users\jornstein\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\omscmr.fd
 "
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 26.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 26.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
  [1
 
 {C:/Users/jornstein/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-[2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
-[18]
-<Figures/firstStageFigure.png, id=390, 578.16pt x 289.08pt>
-File: Figures/firstStageFigure.png Graphic file (type png)
-<use Figures/firstStageFigure.png>
-Package pdftex.def Info: Figures/firstStageFigure.png  used on input line 138.
+[2] [3] [4] [5]
+<figures/Figure1.png, id=183, 1897.0875pt x 1309.89375pt>
+File: figures/Figure1.png Graphic file (type png)
+<use figures/Figure1.png>
+Package pdftex.def Info: figures/Figure1.png  used on input line 116.
+(pdftex.def)             Requested size: 469.75502pt x 324.35461pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6] [7 <./figures/Figure1.png>] [8]
+<figures/Figure2.png, id=245, 578.16pt x 289.08pt>
+File: figures/Figure2.png Graphic file (type png)
+<use figures/Figure2.png>
+Package pdftex.def Info: figures/Figure2.png  used on input line 148.
+(pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
+ [9]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10 <./figures/Figure2.png>]
+<figures/Figure3.png, id=269, 1043.3379pt x 827.9733pt>
+File: figures/Figure3.png Graphic file (type png)
+<use figures/Figure3.png>
+Package pdftex.def Info: figures/Figure3.png  used on input line 190.
+(pdftex.def)             Requested size: 469.75502pt x 372.78668pt.
+ [11] [12 <./figures/Figure3.png>]
+<figures/Figure4.png, id=286, 578.16pt x 289.08pt>
+File: figures/Figure4.png Graphic file (type png)
+<use figures/Figure4.png>
+Package pdftex.def Info: figures/Figure4.png  used on input line 226.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[19] [20 <./Figures/firstStageFigure.png>]
-<Figures/balancePlots.png, id=414, 1193.9004pt x 838.5729pt>
-File: Figures/balancePlots.png Graphic file (type png)
-<use Figures/balancePlots.png>
-Package pdftex.def Info: Figures/balancePlots.png  used on input line 176.
-(pdftex.def)             Requested size: 469.75502pt x 329.94672pt.
- [21 <./Figures/balancePlots.png>]
-<Figures/interestRateRDFigure.png, id=425, 578.16pt x 289.08pt>
-File: Figures/interestRateRDFigure.png Graphic file (type png)
-<use Figures/interestRateRDFigure.png>
-Package pdftex.def Info: Figures/interestRateRDFigure.png  used on input line 1
-88.
-(pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
-
-[22 <./Figures/interestRateRDFigure.png>]
-<Figures/dynamicRD.png, id=435, 895.4253pt x 628.749pt>
-File: Figures/dynamicRD.png Graphic file (type png)
-<use Figures/dynamicRD.png>
-Package pdftex.def Info: Figures/dynamicRD.png  used on input line 223.
-(pdftex.def)             Requested size: 469.75502pt x 329.8583pt.
- [23 <./Figures/dynamicRD.png>]
-<Figures/rdEstimateVaryingIdeologyDistance.png, id=444, 596.9502pt x 419.166pt>
-
-File: Figures/rdEstimateVaryingIdeologyDistance.png Graphic file (type png)
-<use Figures/rdEstimateVaryingIdeologyDistance.png>
-Package pdftex.def Info: Figures/rdEstimateVaryingIdeologyDistance.png  used on
- input line 234.
-(pdftex.def)             Requested size: 469.75502pt x 329.85832pt.
+[13]
+<figures/Figure5.png, id=295, 521.5485pt x 413.8662pt>
+File: figures/Figure5.png Graphic file (type png)
+<use figures/Figure5.png>
+Package pdftex.def Info: figures/Figure5.png  used on input line 239.
+(pdftex.def)             Requested size: 469.75502pt x 372.77293pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Figures/rdEstimateVaryingYear.png, id=446, 596.9502pt x 419.166pt>
-File: Figures/rdEstimateVaryingYear.png Graphic file (type png)
-<use Figures/rdEstimateVaryingYear.png>
-Package pdftex.def Info: Figures/rdEstimateVaryingYear.png  used on input line 
-244.
-(pdftex.def)             Requested size: 469.75502pt x 329.85832pt.
-(InterestRateCostOfSocialDemocracy_v1_2.bbl [24] [25 <./Figures/rdEstimateVaryi
-ngIdeologyDistance.png>] [26 <./Figures/rdEstimateVaryingYear.png>] [27]
-[28] [29])
-<Figures/rdEstimateVaryingENPP.png, id=478, 596.9502pt x 419.166pt>
-File: Figures/rdEstimateVaryingENPP.png Graphic file (type png)
-<use Figures/rdEstimateVaryingENPP.png>
-Package pdftex.def Info: Figures/rdEstimateVaryingENPP.png  used on input line 
-269.
-(pdftex.def)             Requested size: 469.75502pt x 329.85832pt.
+[14 <./figures/Figure4.png>]
+<figures/Figure6.png, id=310, 521.5485pt x 413.8662pt>
+File: figures/Figure6.png Graphic file (type png)
+<use figures/Figure6.png>
+Package pdftex.def Info: figures/Figure6.png  used on input line 249.
+(pdftex.def)             Requested size: 469.75502pt x 372.77293pt.
+ [15 <./figures/Figure5.png>] [16 <./figures/Figure6.png>] [17] (InterestRateCo
+stOfSocialDemocracy.bbl [18] [19] [20] [21])
+<figures/Figure7.png, id=351, 573.8238pt x 455.301pt>
+File: figures/Figure7.png Graphic file (type png)
+<use figures/Figure7.png>
+Package pdftex.def Info: figures/Figure7.png  used on input line 275.
+(pdftex.def)             Requested size: 469.75502pt x 372.73091pt.
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/Figure8.png, id=353, 521.5485pt x 413.8662pt>
+File: figures/Figure8.png Graphic file (type png)
+<use figures/Figure8.png>
+Package pdftex.def Info: figures/Figure8.png  used on input line 284.
+(pdftex.def)             Requested size: 469.75502pt x 372.77293pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Figures/bandwidthSensitivity.png, id=484, 596.9502pt x 419.166pt>
-File: Figures/bandwidthSensitivity.png Graphic file (type png)
-<use Figures/bandwidthSensitivity.png>
-Package pdftex.def Info: Figures/bandwidthSensitivity.png  used on input line 3
-09.
-(pdftex.def)             Requested size: 469.75502pt x 329.85832pt.
+[22]
+<figures/Figure9.png, id=367, 521.5485pt x 413.8662pt>
+File: figures/Figure9.png Graphic file (type png)
+<use figures/Figure9.png>
+Package pdftex.def Info: figures/Figure9.png  used on input line 324.
+(pdftex.def)             Requested size: 469.75502pt x 372.77293pt.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[30]
+[23 <./figures/Figure7.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 353.
-[31 <./Figures/rdEstimateVaryingENPP.png>] [32 <./Figures/bandwidthSensitivity.
-png>] [33]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 353.
- (InterestRateCostOfSocialDemocracy_v1_2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 353.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 353.
-Package rerunfilecheck Info: File `InterestRateCostOfSocialDemocracy_v1_2.out' 
-has not changed.
-(rerunfilecheck)             Checksum: F3D89135EC22CEF9AC8129F693CDDBA6;1162.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 353.
+[24 <./figures/Figure8.png>]
+<figures/Figure10.png, id=382, 782.4432pt x 621.0402pt>
+File: figures/Figure10.png Graphic file (type png)
+<use figures/Figure10.png>
+Package pdftex.def Info: figures/Figure10.png  used on input line 368.
+(pdftex.def)             Requested size: 469.75502pt x 372.85443pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 379.
+[25] [26 <./figures/Figure9.png>] [27] [28 <./figures/Figure10.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 379.
+
+(InterestRateCostOfSocialDemocracy.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 379.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 379.
+Package rerunfilecheck Info: File `InterestRateCostOfSocialDemocracy.out' has n
+ot changed.
+(rerunfilecheck)             Checksum: A8404601F253C6159AF865112206CA9B;1050.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 379.
  ) 
 Here is how much of TeX's memory you used:
- 7261 strings out of 492973
- 107548 string characters out of 3124920
- 205055 words of memory out of 3000000
- 10915 multiletter control sequences out of 15000+200000
- 15459 words of font info for 60 fonts, out of 3000000 for 9000
+ 7785 strings out of 492973
+ 116958 string characters out of 3124920
+ 222344 words of memory out of 3000000
+ 11447 multiletter control sequences out of 15000+200000
+ 14211 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,11n,31p,3252b,499s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.16} has been referenced but does not ex
+ 30i,12n,31p,6083b,491s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not ex
 ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.15} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.14} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exis
-t, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exis
 t, replaced by a fixed one
@@ -593,30 +634,34 @@ pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 <C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/public/amsfonts/cm/cmbx12.pfb><C:/Users/jornstein/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/jornstein/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Use
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jornstein/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Use
 rs/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mmi12.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmmi5.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/jornstein/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/jornstein/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/U
-sers/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr12.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmr17.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/jornstein/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/jornstein/Ap
-pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/U
-sers/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmsy7.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmsy8.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/jornstein/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/jornstei
-n/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on InterestRateCostOfSocialDemocracy_v1_2.pdf (33 pages, 827801 
-bytes).
+mmi10.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmmi12.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/jornstein/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/jornstein/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/
+Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmmi8.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/jornstein/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/jornstein
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/
+Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmr7.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jornstein/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/jornstein/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/
+Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmti10.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmti12.pfb><C:/Users/jornstein/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on InterestRateCostOfSocialDemocracy.pdf (28 pages, 906100 bytes
+).
 PDF statistics:
- 596 PDF objects out of 1000 (max. 8388607)
- 125 named destinations out of 1000 (max. 500000)
- 185 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 496 PDF objects out of 1000 (max. 8388607)
+ 104 named destinations out of 1000 (max. 500000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

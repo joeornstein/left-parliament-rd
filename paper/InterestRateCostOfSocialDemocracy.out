@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Theoretical Model}{}% 2
+\BOOKMARK [1][-]{section.3}{Data}{}% 3
+\BOOKMARK [1][-]{section.4}{Empirical Analysis}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Evaluating the Mechanism}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Balance Tests}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Bond Markets}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.4}{Further Exploration of Heterogeneous Treatment Effects}{section.4}% 8
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 9
+\BOOKMARK [1][-]{Appendix.1.A}{Appendix Robustness Tests}{}% 10
+\BOOKMARK [2][-]{subsection.1.A.1}{Varying the ENPP Threshold}{Appendix.1.A}% 11
+\BOOKMARK [2][-]{subsection.1.A.2}{Regression Discontinuity with Covariates}{Appendix.1.A}% 12
+\BOOKMARK [2][-]{subsection.1.A.3}{Sensitivity to Bandwidth}{Appendix.1.A}% 13
+\BOOKMARK [2][-]{subsection.1.A.4}{Sensitivity to Polynomial Order and Kernel Function}{Appendix.1.A}% 14
+\BOOKMARK [2][-]{subsection.1.A.5}{Dynamic RD Estimates}{Appendix.1.A}% 15
