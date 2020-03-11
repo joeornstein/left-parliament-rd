@@ -720,6 +720,14 @@ elections_filtered <- elections %>%
          !is.na(bond.market.response)) %>%
   select(cutoff, social_democratic_seat_share, bond.market.response)
 
+# Slice the cutoffs into discrete intervals (see Catteneo et al., 2016 JOP)
+breaks <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6)
+elections_filtered$cutoff_interval <- cut(elections_filtered$cutoff,
+                                          breaks = c(breaks, 1),
+                                          labels = breaks) %>%
+  as.character %>%
+  as.numeric
+
 rd_multiple_cutoffs <- rdmc(Y = elections_filtered$bond.market.response, 
                             X = elections_filtered$social_democratic_seat_share, 
                             C = elections_filtered$cutoff)
