@@ -108,6 +108,7 @@ rdModelHighENPP <- rdrobust(y = YhighENPP, x = XhighENPP, c = 0)
 
 summary(rdModelAll)
 rdModelAll$N %>% sum
+rdModelAll$Nh %>% sum
 rdModelAll$bws['h','left']
 rdModelAll$coef['Bias-Corrected',]
 paste0("[",rdModelAll$coef['Bias-Corrected',] - 1.96 * rdModelAll$se['Robust',],
@@ -115,6 +116,7 @@ paste0("[",rdModelAll$coef['Bias-Corrected',] - 1.96 * rdModelAll$se['Robust',],
 
 summary(rdModelLowENPP)
 rdModelLowENPP$N %>% sum
+rdModelLowENPP$Nh %>% sum
 rdModelLowENPP$bws['h','left']
 rdModelLowENPP$coef['Bias-Corrected',]
 paste0("[",rdModelLowENPP$coef['Bias-Corrected',] - 1.96 * rdModelLowENPP$se['Robust',],
@@ -122,6 +124,7 @@ paste0("[",rdModelLowENPP$coef['Bias-Corrected',] - 1.96 * rdModelLowENPP$se['Ro
 
 summary(rdModelHighENPP)
 rdModelHighENPP$N %>% sum
+rdModelHighENPP$Nh %>% sum
 rdModelHighENPP$bws['h','left']
 rdModelHighENPP$coef['Bias-Corrected',]
 paste0("[",rdModelHighENPP$coef['Bias-Corrected',] - 1.96 * rdModelHighENPP$se['Robust',],
@@ -337,6 +340,7 @@ summary(rdModelHighENPP)
 
 summary(rdModelAll)
 rdModelAll$N %>% sum
+rdModelAll$Nh %>% sum
 rdModelAll$bws['h','left']
 rdModelAll$coef['Bias-Corrected',]
 paste0("[",rdModelAll$coef['Bias-Corrected',] - 1.96 * rdModelAll$se['Robust',],
@@ -344,6 +348,7 @@ paste0("[",rdModelAll$coef['Bias-Corrected',] - 1.96 * rdModelAll$se['Robust',],
 
 summary(rdModelLowENPP)
 rdModelLowENPP$N %>% sum
+rdModelLowENPP$Nh %>% sum
 rdModelLowENPP$bws['h','left']
 rdModelLowENPP$coef['Bias-Corrected',]
 paste0("[",rdModelLowENPP$coef['Bias-Corrected',] - 1.96 * rdModelLowENPP$se['Robust',],
@@ -351,6 +356,7 @@ paste0("[",rdModelLowENPP$coef['Bias-Corrected',] - 1.96 * rdModelLowENPP$se['Ro
 
 summary(rdModelHighENPP)
 rdModelHighENPP$N %>% sum
+rdModelHighENPP$Nh %>% sum
 rdModelHighENPP$bws['h','left']
 rdModelHighENPP$coef['Bias-Corrected',]
 paste0("[",rdModelHighENPP$coef['Bias-Corrected',] - 1.96 * rdModelHighENPP$se['Robust',],

@@ -1,0 +1,18 @@
+\BOOKMARK [1][-]{section.1}{Introduction and Motivation}{}% 1
+\BOOKMARK [1][-]{section.2}{Discussion}{}% 2
+\BOOKMARK [1][-]{section.3}{Methods}{}% 3
+\BOOKMARK [1][-]{section.4}{Design}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Limitations}{section.4}% 5
+\BOOKMARK [1][-]{section.5}{Data Collection}{}% 6
+\BOOKMARK [1][-]{section.6}{Results}{}% 7
+\BOOKMARK [2][-]{subsection.6.1}{Testing the Mechanism}{section.6}% 8
+\BOOKMARK [2][-]{subsection.6.2}{Balance Tests}{section.6}% 9
+\BOOKMARK [2][-]{subsection.6.3}{Bond Markets}{section.6}% 10
+\BOOKMARK [2][-]{subsection.6.4}{Dynamic RD Estimates}{section.6}% 11
+\BOOKMARK [1][-]{section.7}{Heterogeneous Treatment Effects}{}% 12
+\BOOKMARK [1][-]{section.8}{Conclusion}{}% 13
+\BOOKMARK [1][-]{Appendix.1.A}{Appendix Robustness Tests}{}% 14
+\BOOKMARK [2][-]{subsection.1.A.1}{Varying the ENPP Threshold}{Appendix.1.A}% 15
+\BOOKMARK [2][-]{subsection.1.A.2}{Regression Discontinuity with Covariates}{Appendix.1.A}% 16
+\BOOKMARK [2][-]{subsection.1.A.3}{Sensitivity to Bandwidth}{Appendix.1.A}% 17
+\BOOKMARK [2][-]{subsection.1.A.4}{Sensitivity to Polynomial Order and Kernel Function}{Appendix.1.A}% 18
