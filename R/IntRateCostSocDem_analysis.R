@@ -713,11 +713,18 @@ elections$cutoff <- elections$LargestOtherSeats / elections$seats_total
 # Generate seat share
 elections$social_democratic_seat_share <- elections$SocDemSeats / elections$seats_total
 
-rd_multiple_cutoffs <- rdmc(Y = elections$bond.market.response, 
-                            X = elections$social_democratic_seat_share, 
-                            C = elections$cutoff)
+# Filter out the NAs
+elections_filtered <- elections %>% 
+  filter(!is.na(cutoff),
+         !is.na(social_democratic_seat_share),
+         !is.na(bond.market.response)) %>%
+  select(cutoff, social_democratic_seat_share, bond.market.response)
 
-# TODO: Update to R 3.6.3 and retry.
+rd_multiple_cutoffs <- rdmc(Y = elections_filtered$bond.market.response, 
+                            X = elections_filtered$social_democratic_seat_share, 
+                            C = elections_filtered$cutoff)
+
+# It may be that continuous cutoffs is inappropriate for this approach. 
 
 ## Section A.7: Gaussian Process Regression Discontinuity ----
 
@@ -741,12 +748,19 @@ summary(gprd_all)
 
 # Low Fragmentation
 gprd_lowENPP <- gprd(x = XlowENPP, y = YlowENPP)
-plot(gprd_lowENPP, xlab = xlab, ylab = ylab)
 summary(gprd_lowENPP)
+
+pdf('paper/figures/Figure11a.pdf', height = 5, width = 8)
+plot(gprd_lowENPP, xlab = xlab, ylab = ylab)
+dev.off()
 
 # High Fragmentation
 gprd_highENPP <- gprd(x = XhighENPP, y = YhighENPP)
-plot(gprd_highENPP, xlab = xlab, ylab = ylab)
 summary(gprd_highENPP)
+
+pdf('paper/figures/Figure11b.pdf', height = 5, width = 8)
+plot(gprd_highENPP, xlab = xlab, ylab = ylab)
+dev.off()
+
 
 
