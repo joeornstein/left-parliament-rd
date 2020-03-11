@@ -1,11 +1,12 @@
 # Close Elections and the Interest Rate Cost of Social Democracy
 # Regression Discontinuity estimates of the effect of social democratic plurality in parliament on bond yields
 
-# Version 3.0
+# Version 3.1
 
-# Last Updated by Joe Ornstein (February 3, 2020)
+# Last Updated by Joe Ornstein (March 11, 2020)
 
 # Change Log:
+# v3.1 - Final appendix analyses before submitting to QJPS
 # v3.0 - Implementing JOP reviewer suggestions 
 # v2.2 - List of low-fragmentation and high-fragmentation country-years
 # v2.1 - Cleaned up code
@@ -19,20 +20,24 @@
 # v1.3 - Added ENPP Computations
 
 
-#Load Packages & Data -----------------------------------
+## Load Packages & Data ----
+
 library(tidyverse)
 library(magrittr)
 library(rdrobust)
 library(cowplot)
 
-# source("IntRateCostSocDem_preprocessing_v2_1.r") #Merge and Clean Dataset
+# Merge and Clean Dataset
+# source("R/IntRateCostSocDem_preprocessing.R") 
+
+# Load Cleaned Dataset
 elections <- read_csv("data/IntRateCostSocDem_dataset_v2_1.csv")
 
 # Drop Switzerland, because of the "Magic Formula"
 elections %<>% filter(country_name != "Switzerland")
 
 
-# Section 1: How many elections are "close"? -------------------------------------------
+## Section 1: How many elections are "close"? ----
 
 elections %>%
   group_by(!is.na(bond.yield.t), 
@@ -40,7 +45,7 @@ elections %>%
   summarise(num = n())
 
 
-# Section 4.1:  Testing the Mechanism --------------------------------------------------
+## Section 4.1:  Testing the Mechanism ----
 
 # Does a slight plurality of social democratic seats yield a discontinuity in probability of
 # having a social democratic party in your cabinet? (Depends on party fragmentation)
@@ -131,7 +136,7 @@ paste0("[",rdModelHighENPP$coef['Bias-Corrected',] - 1.96 * rdModelHighENPP$se['
        ", ", rdModelHighENPP$coef['Bias-Corrected',] + 1.96 * rdModelHighENPP$se['Robust',], "]")
 
 
-#Section 4.2:  Balance Tests -------------------------------------------------------------
+## Section 4.2: Balance Tests ----
 
 ggBalance <- function(enppThreshold){
   
@@ -244,36 +249,36 @@ rdBalance <- function(enppThreshold, covariate){
   rdrobust(y = Y, x = X, c = 0) %>% return
 }
 
-#Population Balance
+# Population Balance
 popBalance <- rdBalance(enppThreshold, covariate = "logpop")
 summary(popBalance)
 
-#GDP Per Capita Balance
+# GDP Per Capita Balance
 gdpBalance <- rdBalance(enppThreshold, covariate = "gdppc_WDI")
 summary(gdpBalance)
 
-#Polity Balance
+# Polity Balance
 polityBalance <- rdBalance(enppThreshold, covariate = "polity2_P4")
 summary(polityBalance)
 
-#Expenditures Balance
+# Expenditures Balance
 expBalance <- rdBalance(enppThreshold, covariate = "exp_WDI")
 summary(expBalance) 
 
-#Taxes Balance
+# Taxes Balance
 taxBalance <- rdBalance(enppThreshold, covariate = "tax_rev_WDI")
 summary(taxBalance) 
 
-#Inflation Balance
+# Inflation Balance
 infBalance <- rdBalance(enppThreshold, covariate = "inflation_WDI")
 summary(infBalance) 
 
-#OECD  Balance
+# OECD Average Balance
 elections$oecd.movement <- elections$oecd.average.tplus1 - elections$oecd.average.t
 oecdBalance <- rdBalance(enppThreshold, covariate = "oecd.movement")
 summary(oecdBalance) 
 
-#Section 4.3: Bond Market Regression Discontinuity -----------------------------------------------------
+## Section 4.3: Bond Market Regression Discontinuity ----
 
 ggRD <- function(df, enppThreshold, depvar, yearSubset = 1940:2020, ylabel = "Bond Yield Change (1 Month)"){
   
@@ -365,7 +370,7 @@ paste0("[",rdModelHighENPP$coef['Bias-Corrected',] - 1.96 * rdModelHighENPP$se['
 
 
 
-# Section 5:  Heterogeneous Treatment Effects -------------------------------------------------------
+## Section 5:  Heterogeneous Treatment Effects -----
 
 # Heterogeneous Treatment Effects by Ideological Distance
 df <- tibble(ipd.min = seq(0,3.5,0.25),
@@ -434,7 +439,7 @@ ggplot(df, aes(x=yearMin, y=estimate)) + geom_point() +
 ggsave("paper/figures/Figure6.png", scale = 1)
 
 
-# Appendix A.1: Low Fragmentation and High Fragmentation Country-Years ------------------------------
+## Appendix A.1: Low Fragmentation and High Fragmentation Country-Years ----
 
 elections %>%
   filter(!is.na(bond.yield.t),
@@ -472,7 +477,7 @@ ggplot(ggdat, aes(x = enpp, y=country_name)) + geom_point() +
 ggsave("paper/figures/Figure7.png", scale = 1.1)
 
 
-# Appendix A.1: Vary the ENPP Threshold -------------------------------------------------------------
+## Appendix A.1: Vary the ENPP Threshold ----
 
 df <- tibble(enppThreshold = seq(2.5,12,0.1),
              estimate = NA,
@@ -497,7 +502,7 @@ ggplot(df, aes(x=enppThreshold, y=estimate)) + geom_point() +
 ggsave("paper/figures/Figure8.png", scale = 1)
 
 
-# Appendix A.2: RD with covariates --------------------------------------------
+## Appendix A.2: RD with covariates ----
 
 rdData <- elections %>% filter(!is.na(bond.market.response),
                                !is.na(gdppc_WDI),
@@ -553,7 +558,7 @@ paste0("[",rdWCovsHighENPP$coef['Bias-Corrected',] - 1.96 * rdWCovsHighENPP$se['
 
 
 
-# Appendix A.3: Sensitivity to Bandwidth -------------------------------------
+## Appendix A.3: Sensitivity to Bandwidth ----
 
 rdData <- elections %>% filter(enpp < enppThreshold)
 
@@ -588,7 +593,7 @@ ggsave("paper/figures/Figure9.png", scale = 1)
 
 
 
-# Appendix A.4: Sensitivity to Polynomial Order / Kernel ------------------------------------------------------
+## Appendix A.4: Sensitivity to Polynomial Order / Kernel ----
 
 rdData <- elections
 
@@ -640,7 +645,7 @@ QuadraticUniformHighENPP$coef["Bias-Corrected",]
 
 
 
-# Section A.5:  Dynamic RD -----------------------------------------------------------
+## Section A.5:  Dynamic RD ----
 
 dynamicRDBondYields <- function(df,
                                 enpp.min = 0, enpp.max = 11, 
@@ -696,3 +701,52 @@ dynamicRDHighENPP <- dynamicRDBondYields(df = elections, enpp.min = enppThreshol
                                          title = "High Fragmentation")
 plot_grid(dynamicRDLowENPP, dynamicRDHighENPP, nrow = 2)
 ggsave("paper/figures/Figure10.png", scale = 1.5)
+
+
+## Section A.6: Multiple Cutoff Regression Discontinuity Design ----
+
+library(rdmulti)
+
+# Generate election-specific cutoffs
+elections$cutoff <- elections$LargestOtherSeats / elections$seats_total
+
+# Generate seat share
+elections$social_democratic_seat_share <- elections$SocDemSeats / elections$seats_total
+
+rd_multiple_cutoffs <- rdmc(Y = elections$bond.market.response, 
+                            X = elections$social_democratic_seat_share, 
+                            C = elections$cutoff)
+
+# TODO: Update to R 3.6.3 and retry.
+
+## Section A.7: Gaussian Process Regression Discontinuity ----
+
+library(gprd)
+
+Y_all <- elections$bond.market.response
+YlowENPP <- elections %>% filter(enpp < enppThreshold) %>% use_series(bond.market.response)
+YhighENPP <- elections %>% filter(enpp > enppThreshold) %>% use_series(bond.market.response)
+
+X_all <- elections$leftPluralityPercentage
+XlowENPP <- elections %>% filter(enpp < enppThreshold) %>% use_series(leftPluralityPercentage)
+XhighENPP <- elections %>% filter(enpp > enppThreshold) %>% use_series(leftPluralityPercentage)
+
+xlab <- 'Social Democratic Plurality'
+ylab <- 'Bond Yield Change (1 Month)'
+
+# All Elections
+gprd_all <- gprd(x = X_all, y = Y_all)
+plot(gprd_all)
+summary(gprd_all)
+
+# Low Fragmentation
+gprd_lowENPP <- gprd(x = XlowENPP, y = YlowENPP)
+plot(gprd_lowENPP, xlab = xlab, ylab = ylab)
+summary(gprd_lowENPP)
+
+# High Fragmentation
+gprd_highENPP <- gprd(x = XhighENPP, y = YhighENPP)
+plot(gprd_highENPP, xlab = xlab, ylab = ylab)
+summary(gprd_highENPP)
+
+
