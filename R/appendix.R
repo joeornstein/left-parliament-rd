@@ -70,9 +70,7 @@ data <- elections %>%
 
 ## Appendix figure -------------
 
-enpp_threshold <- 3
-countries_to_exclude <- c('')
-
+enpp_threshold <- 3.5
 
 data_left <- data %>% filter(enpp < enpp_threshold, 
                              !(isocode %in% countries_to_exclude),
@@ -85,17 +83,20 @@ ggplot() +
   geom_point(color = 'gray', data = data_left, aes(x=leftPluralityPercentage,y=left_party_loss_probability)) +
   geom_point(color = 'gray', data = data_right, aes(x=leftPluralityPercentage,y=left_party_loss_probability)) +
   geom_smooth(color = 'black', data = data_left, 
-              aes(x=leftPluralityPercentage, y= left_party_loss_probability), se=F) +
+              aes(x=leftPluralityPercentage, y= left_party_loss_probability)) +
   geom_smooth(color = 'black', data = data_right, 
-              aes(x=leftPluralityPercentage, y= left_party_loss_probability), se=F) +
+              aes(x=leftPluralityPercentage, y= left_party_loss_probability)) +
   xlab("Left Party Plurality") + ylab("Ex Ante Left Party Loss Probability") + 
-  ylim(data %>% filter(enpp < enppThreshold,
+  ylim(data %>% filter(enpp < enpp_threshold,
                        !(isocode %in% countries_to_exclude)) %>% 
          pull(left_party_loss_probability) %>% min,
-       data %>% filter(enpp < enppThreshold,
+       data %>% filter(enpp < enpp_threshold,
                        !(isocode %in% countries_to_exclude)) %>% 
          pull(left_party_loss_probability) %>% max) +
   xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
+
+
+ggsave('paper/figures/Figure11.png', width = 8, height = 5)
 
 X <- data %>% 
   filter(enpp < enpp_threshold,
@@ -111,38 +112,46 @@ rdModel <- rdrobust(y = Y, x = X, c = 0)
 summary(rdModel)
 
 
-# Is the estimated RD effect on bond yields still positive for this restricted set?
-
-X <- elections %>% 
-  filter(enpp < enppThreshold,
-         !(isocode %in% countries_to_exclude)) %>% 
-  pull(leftPluralityPercentage)
-
-Y <- elections %>% 
-  filter(enpp < enppThreshold,
-         !(isocode %in% countries_to_exclude)) %>% 
-  pull(bond.market.response)
-
-rdModel <- rdrobust(y = Y, x = X, c = 0)
-summary(rdModel)
+# include electoral loss probability as a covariate ------------
 
 
-# include as a covariate
-X <- data %>% 
-  filter(enpp < enppThreshold,
-         !(isocode %in% countries_to_exclude)) %>% 
-  pull(leftPluralityPercentage)
+# All observations
+rdrobust(y = data$bond.market.response, 
+         x = data$leftPluralityPercentage, 
+         c = 0, 
+         covs = data %>% 
+           select(gdppc_WDI, logpop, inflation_WDI, exp_WDI, tax_rev_WDI, left_party_loss_probability) %>%
+           as.matrix
+) %>% 
+  summary
 
-Y <- data %>% 
-  filter(enpp < enppThreshold,
-         !(isocode %in% countries_to_exclude)) %>% 
-  pull(bond.market.response)
+# Low fragmentation
+rdrobust(y = data %>% 
+           filter(enpp < enpp_threshold) %>% 
+           pull(bond.market.response), 
+         x = data %>% 
+           filter(enpp < enpp_threshold) %>% 
+           pull(leftPluralityPercentage), 
+         c = 0, 
+         covs = data %>% 
+           filter(enpp < enpp_threshold) %>% 
+           select(gdppc_WDI, logpop, inflation_WDI, exp_WDI, tax_rev_WDI, left_party_loss_probability) %>%
+           as.matrix
+) %>% 
+  summary
 
-covariates <- data %>% 
-  filter(enpp < enppThreshold,
-         !(isocode %in% countries_to_exclude)) %>% 
-  select(gdppc_WDI, logpop, inflation_WDI, exp_WDI, tax_rev_WDI, left_party_loss_probability) %>%
-  as.matrix
 
-rd_model_covariates <- rdrobust(y = Y, x = X, c = 0, covs = covariates)
-summary(rd_model_covariates)
+# High fragmentation
+rdrobust(y = data %>% 
+           filter(enpp > enpp_threshold) %>% 
+           pull(bond.market.response), 
+         x = data %>% 
+           filter(enpp > enpp_threshold) %>% 
+           pull(leftPluralityPercentage), 
+         c = 0, 
+         covs = data %>% 
+           filter(enpp > enpp_threshold) %>% 
+           select(gdppc_WDI, logpop, inflation_WDI, exp_WDI, tax_rev_WDI, left_party_loss_probability) %>%
+           as.matrix
+) %>% 
+  summary

@@ -372,6 +372,25 @@ paste0("[",rdModelHighENPP$coef['Bias-Corrected',] - 1.96 * rdModelHighENPP$se['
 
 ## Section 5:  Heterogeneous Treatment Effects -----
 
+getRDEstimate <- function(enppThreshold, ipd.min = 0, yearSubset = 1940:2020, depvar){
+  
+  df <- elections %>% filter(enpp < enppThreshold, 
+                             idealPointDifference >= ipd.min, 
+                             election_year %in% yearSubset)
+  
+  Y <- df[,depvar] %>% unlist %>% as.numeric 
+  X <- df$leftPluralityPercentage
+  
+  rdModel <- rdrobust(y = Y, x = X, c = 0)
+  
+  estimate <- rdModel$coef['Bias-Corrected',]
+  ci95low <- estimate - 1.96 * rdModel$se['Robust',]
+  ci95high <- estimate + 1.96 * rdModel$se['Robust',]
+  n <- sum(rdModel$N)
+  
+  return(c(estimate, ci95low, ci95high, n))
+}
+
 # Heterogeneous Treatment Effects by Ideological Distance
 df <- tibble(ipd.min = seq(0,3.5,0.25),
              estimate = NA,
@@ -395,25 +414,6 @@ ggsave("paper/figures/Figure5.png", scale = 1)
 
 
 # Heterogeneous Treatment EFfect, Varying Historical Era
-getRDEstimate <- function(enppThreshold, ipd.min = 0, yearSubset = 1940:2020, depvar){
-  
-  df <- elections %>% filter(enpp < enppThreshold, 
-                             idealPointDifference >= ipd.min, 
-                             election_year %in% yearSubset)
-  
-  Y <- df[,depvar] %>% unlist %>% as.numeric 
-  X <- df$leftPluralityPercentage
-  
-  rdModel <- rdrobust(y = Y, x = X, c = 0)
-  
-  estimate <- rdModel$coef['Bias-Corrected',]
-  ci95low <- estimate - 1.96 * rdModel$se['Robust',]
-  ci95high <- estimate + 1.96 * rdModel$se['Robust',]
-  n <- sum(rdModel$N)
-  
-  return(c(estimate, ci95low, ci95high, n))
-}
-
 df <- tibble(yearMin = 1945:1990,
              yearMax = 1975:2020,
              estimate = NA,
