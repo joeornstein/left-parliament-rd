@@ -72,11 +72,9 @@ data <- elections %>%
 
 enpp_threshold <- 3.5
 
-data_left <- data %>% filter(enpp < enpp_threshold, 
-                             !(isocode %in% countries_to_exclude),
+data_left <- data %>% filter(enpp < enpp_threshold,
                              leftPluralityPercentage < 0)
 data_right <- data %>% filter(enpp < enpp_threshold, 
-                              !(isocode %in% countries_to_exclude),
                               leftPluralityPercentage > 0)
 
 ggplot() + 
@@ -86,12 +84,10 @@ ggplot() +
               aes(x=leftPluralityPercentage, y= left_party_loss_probability)) +
   geom_smooth(color = 'black', data = data_right, 
               aes(x=leftPluralityPercentage, y= left_party_loss_probability)) +
-  xlab("Left Party Plurality") + ylab("Ex Ante Left Party Loss Probability") + 
-  ylim(data %>% filter(enpp < enpp_threshold,
-                       !(isocode %in% countries_to_exclude)) %>% 
+  xlab("Left Party Plurality Margin") + ylab("Ex Ante Left Party Loss Probability") + 
+  ylim(data %>% filter(enpp < enpp_threshold) %>% 
          pull(left_party_loss_probability) %>% min,
-       data %>% filter(enpp < enpp_threshold,
-                       !(isocode %in% countries_to_exclude)) %>% 
+       data %>% filter(enpp < enpp_threshold) %>% 
          pull(left_party_loss_probability) %>% max) +
   xlim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
 
@@ -99,12 +95,10 @@ ggplot() +
 ggsave('paper/figures/Figure11.png', width = 8, height = 5)
 
 X <- data %>% 
-  filter(enpp < enpp_threshold,
-         !(isocode %in% countries_to_exclude),) %>% 
+  filter(enpp < enpp_threshold) %>% 
   pull(leftPluralityPercentage)
 Y <- data %>% 
-  filter(enpp < enpp_threshold,
-         !(isocode %in% countries_to_exclude),) %>% 
+  filter(enpp < enpp_threshold) %>% 
   pull(left_party_loss_probability)
 
 
