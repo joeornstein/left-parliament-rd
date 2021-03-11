@@ -4,6 +4,7 @@
 
 library(tidyverse)
 library(rdrobust)
+library(cowplot)
 
 ## Load Kayser & Lindstadt loss probability measure (available here: http://mark-kayser.com/data.html)
 lpr <- read_delim('data/lprdata_distrib_augmented_2015.csv', delim = ';')
@@ -149,3 +150,106 @@ rdrobust(y = data %>%
            as.matrix
 ) %>% 
   summary
+
+
+## Daily Data --------------------------------
+library(janitor)
+
+elections <- read_csv('data/IntRateCostSocDem_dataset_v2_1.csv') %>% 
+  clean_names() %>% 
+  select(election_id:enpp) %>% 
+  rename(country = country_name,
+         date = election_date) %>% 
+  relocate(country, date, .after = election_id)
+  
+daily <- read_csv('data/daily.csv')
+
+
+# match each election with the closest pre-election and post-election bond price
+data <- elections %>% 
+  select(election_id: date) %>% 
+  mutate(pre_election_bond_price = NA,
+         post_election_bond_price = NA)
+
+for(i in 1:nrow(data)){
+  
+  print(i)
+  
+  pre_election_data_points <- daily %>% 
+    filter(country == data$country[i],
+           date < data$date[i]) %>% 
+    nrow
+  
+  if(pre_election_data_points == 0){
+    print('skip')
+    next
+  }
+  
+  data$pre_election_bond_price[i] <- daily %>% 
+    filter(country == data$country[i],
+           date < data$date[i]) %>% 
+    slice_max(date) %>% 
+    pull(price)
+  
+  data$post_election_bond_price[i] <- daily %>% 
+    filter(country == data$country[i],
+           date > data$date[i]) %>% 
+    slice_min(date) %>% 
+    pull(price)
+  
+}
+
+data %>% 
+  filter(!is.na(pre_election_bond_price)) %>% 
+  nrow
+
+data <- data %>% 
+  filter(!is.na(pre_election_bond_price)) %>% 
+  mutate(bond_price_movement = post_election_bond_price - pre_election_bond_price) %>% 
+  left_join(elections)
+
+# none before 1980, 12 from the 1980s, 29 from the 1990s
+table(data$date < '1990-01-01')
+table(data$date > '1990-01-01' & data$date < '2000-01-01')
+
+# plot regression discontinuity at the plurality cutoff
+ggRD <- function(df, enppThreshold, depvar, yearSubset = 1940:2020, ylabel = "Bond Yield Change (1 Month)"){
+  
+  Y <- df[,depvar] %>% unlist %>% as.numeric %>% na.omit
+  df$Y <- df[,depvar] %>% unlist %>% as.numeric
+  
+  ggleft1 <- df %>% filter(enpp < enppThreshold, left_plurality_percentage < 0, election_year %in% yearSubset)
+  nleft1 <- ggleft1 %>% filter(!is.na(Y)) %>% nrow
+  ggright1 <- df %>% filter(enpp < enppThreshold, left_plurality_percentage > 0, election_year %in% yearSubset)
+  nright1 <- ggright1 %>% filter(!is.na(Y)) %>% nrow
+  
+  leftPanel <- ggplot() + 
+    geom_point(color = 'gray', data = ggleft1, aes(x=left_plurality_percentage,y=Y),size=0.75) +
+    geom_point(color = 'gray', data = ggright1, aes(x=left_plurality_percentage,y=Y),size=0.75) +
+    geom_smooth(color = 'black', data = ggleft1, aes(x=left_plurality_percentage, y= Y), se=T) +
+    geom_smooth(color = 'black', data = ggright1, aes(x=left_plurality_percentage, y=Y), se=T) +
+    xlab("Left Party Plurality Margin") + ylab(ylabel) + 
+    ggtitle(paste0("Low Fragmentation (n = ", nleft1+nright1, ")")) +
+    xlim(-1,1) + ylim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
+  
+  ggleft2 <- df %>% filter(enpp > enppThreshold, left_plurality_percentage < 0, election_year %in% yearSubset)
+  nleft2<- ggleft2 %>% filter(!is.na(Y)) %>% nrow
+  ggright2 <- df %>% filter(enpp > enppThreshold, left_plurality_percentage > 0, election_year %in% yearSubset)
+  nright2 <- ggright2 %>% filter(!is.na(Y)) %>% nrow
+  rightPanel <- ggplot() + 
+    geom_point(color = 'gray', data = ggleft2, aes(x=left_plurality_percentage,y=Y), size = 0.75) +
+    geom_point(color = 'gray', data = ggright2, aes(x=left_plurality_percentage,y=Y), size = 0.75) +
+    geom_smooth(color = 'black', data = ggleft2, aes(x=left_plurality_percentage, y= Y), se=T) +
+    geom_smooth(color = 'black', data = ggright2, aes(x=left_plurality_percentage, y= Y), se=T) +
+    xlab("Left Party Plurality Margin") + ylab(ylabel) + 
+    ggtitle(paste0("High Fragmentation (n = ", nleft2+nright2, ")")) +
+    xlim(-1,1) + ylim(-1,1) + theme_bw() + geom_vline(xintercept = 0, linetype = "dashed")
+  
+  plot_grid(leftPanel, rightPanel)
+}
+
+ggRD(data, enppThreshold = 3.5,
+     depvar = 'bond_price_movement',
+     ylabel = 'Bond Price Movement (1 Day)')
+
+ggsave(filename = 'paper/figures/Figure13.png', width = 8, height = 5)
