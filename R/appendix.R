@@ -1,13 +1,10 @@
 ## Appendix Results and Robustness Tests
-## Version: 1.0
-## Last Updated: Feb 11, 2021
+## Version: 1.1
+## Last Updated: April 30, 2021
 
 library(tidyverse)
 library(rdrobust)
 library(cowplot)
-
-## Load Kayser & Lindstadt loss probability measure (available here: http://mark-kayser.com/data.html)
-lpr <- read_delim('data/lprdata_distrib_augmented_2015.csv', delim = ';')
 
 ## Load elections dataset
 elections <- read_csv("data/IntRateCostSocDem_dataset_v2_1.csv") %>%
@@ -26,6 +23,12 @@ elections <- read_csv("data/IntRateCostSocDem_dataset_v2_1.csv") %>%
          plurality_party = if_else(plurality_party == 'Flemish Christian Peoples Party',
                                    'Flemish Christian Peoples Party | Christian Democrats & Flemish',
                                    plurality_party))
+
+
+## Apendix A7 -------------------
+
+# Load Kayser & Lindstadt loss probability measure (available here: http://mark-kayser.com/data.html)
+lpr <- read_delim('data/lprdata_distrib_augmented_2015.csv', delim = ';')
 
 # parlgov party data
 parties <- read_csv('data/parlgov_party_2020.csv') %>% 
@@ -67,9 +70,7 @@ data <- elections %>%
                                                loss_probability, 1 - loss_probability))
 
 
-
-
-## Appendix figure -------------
+# Produce Figure
 
 enpp_threshold <- 3.5
 
@@ -152,7 +153,7 @@ rdrobust(y = data %>%
   summary
 
 
-## Daily Data --------------------------------
+## Appendix A8: Daily Data --------------------------------
 library(janitor)
 
 elections <- read_csv('data/IntRateCostSocDem_dataset_v2_1.csv') %>% 
