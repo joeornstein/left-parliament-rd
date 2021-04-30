@@ -772,41 +772,7 @@ rd_multiple_cutoffs <- rdmc(Y = elections_filtered$bond.market.response,
 
 # It may be that continuous cutoffs is inappropriate for this approach. 
 
-## Section A.7: Gaussian Process Regression Discontinuity ----
 
-library(gprd)
-
-Y_all <- elections$bond.market.response
-YlowENPP <- elections %>% filter(enpp < enppThreshold) %>% use_series(bond.market.response)
-YhighENPP <- elections %>% filter(enpp > enppThreshold) %>% use_series(bond.market.response)
-
-X_all <- elections$leftPluralityPercentage
-XlowENPP <- elections %>% filter(enpp < enppThreshold) %>% use_series(leftPluralityPercentage)
-XhighENPP <- elections %>% filter(enpp > enppThreshold) %>% use_series(leftPluralityPercentage)
-
-xlab <- 'Left Party Plurality Margin'
-ylab <- 'Bond Yield Change (1 Month)'
-
-# All Elections
-gprd_all <- gprd(x = X_all, y = Y_all)
-plot(gprd_all)
-summary(gprd_all)
-
-# Low Fragmentation
-gprd_lowENPP <- gprd(x = XlowENPP, y = YlowENPP)
-summary(gprd_lowENPP)
-
-pdf('paper/figures/Figure11a.pdf', height = 5, width = 8)
-plot(gprd_lowENPP, xlab = xlab, ylab = ylab)
-dev.off()
-
-# High Fragmentation
-gprd_highENPP <- gprd(x = XhighENPP, y = YhighENPP)
-summary(gprd_highENPP)
-
-pdf('paper/figures/Figure11b.pdf', height = 5, width = 8)
-plot(gprd_highENPP, xlab = xlab, ylab = ylab)
-dev.off()
 
 
 
