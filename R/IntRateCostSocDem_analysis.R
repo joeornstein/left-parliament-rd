@@ -772,7 +772,58 @@ rd_multiple_cutoffs <- rdmc(Y = elections_filtered$bond.market.response,
 
 # It may be that continuous cutoffs is inappropriate for this approach. 
 
+## Section A.9: Heterogeneous TfX by Time Period, Restricted Sample --------
 
+elections$bond.market.response <- (elections$bond.yield.tplus1 - elections$bond.yield.t)
 
+getRDEstimate <- function(enppThreshold, ipd.min = 0, 
+                          yearSubset = 1940:2020, countrySubset = 'ERROR',
+                          depvar){
+  
+  df <- elections %>% filter(enpp < enppThreshold, 
+                             idealPointDifference >= ipd.min, 
+                             election_year %in% yearSubset,
+                             country_name %in% countrySubset)
+  
+  Y <- df[,depvar] %>% unlist %>% as.numeric 
+  X <- df$leftPluralityPercentage
+  
+  rdModel <- rdrobust(y = Y, x = X, c = 0)
+  
+  estimate <- rdModel$coef['Bias-Corrected',]
+  ci95low <- estimate - 1.96 * rdModel$se['Robust',]
+  ci95high <- estimate + 1.96 * rdModel$se['Robust',]
+  n <- sum(rdModel$N)
+  
+  return(c(estimate, ci95low, ci95high, n))
+}
 
+# which countries are in our sample from 1945 through 1975?
+country_subset <- elections %>% 
+  filter(election_year %in% 1945:1975) %>% 
+  pull(country_name) %>% 
+  unique
 
+# Heterogeneous Treatment EFfect, Varying Historical Era
+df <- tibble(yearMin = 1945:1990,
+             yearMax = 1975:2020,
+             estimate = NA,
+             ci95low = NA,
+             ci95high = NA,
+             n = NA)
+
+for(i in 1:nrow(df)){
+  rdResults <- getRDEstimate(enppThreshold = 3.5, 
+                             yearSubset = df$yearMin[i]:df$yearMax[i], 
+                             countrySubset = country_subset,
+                             depvar = 'bond.market.response')
+  df$estimate[i] <- rdResults[1]
+  df$ci95low[i] <- rdResults[2]
+  df$ci95high[i] <- rdResults[3]
+  df$n[i] <- rdResults[4]
+}
+
+ggplot(df, aes(x=yearMin, y=estimate)) + geom_point() +
+  geom_errorbar(aes(ymin = ci95low, ymax = ci95high), width = 0) + 
+  geom_hline(yintercept = 0, linetype = 'dashed') +
+  theme_bw() + xlab("Year") + ylab("Estimate")
