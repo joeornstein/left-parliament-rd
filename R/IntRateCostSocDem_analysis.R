@@ -827,3 +827,5 @@ ggplot(df, aes(x=yearMin, y=estimate)) + geom_point() +
   geom_errorbar(aes(ymin = ci95low, ymax = ci95high), width = 0) + 
   geom_hline(yintercept = 0, linetype = 'dashed') +
   theme_bw() + xlab("Year") + ylab("Estimate")
+
+ggsave('paper/figures/Figure14.png')
