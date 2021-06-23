@@ -254,3 +254,30 @@ ggRD(data, enppThreshold = 3.5,
      ylabel = 'Bond Price Movement (1 Day)')
 
 ggsave(filename = 'paper/figures/Figure13.png', width = 8, height = 5)
+
+
+## Plot of Figure 4 faceted by country ---------------------
+
+ggRD <- function(df, enppThreshold, depvar, yearSubset = 1940:2020, ylabel = "Bond Yield Change (1 Month)"){
+  
+  df$Y <- df[,depvar] %>% unlist %>% as.numeric
+  
+  df <- df %>% 
+    filter(enpp < enppThreshold, 
+           election_year %in% yearSubset) %>% 
+    filter(!is.na(Y), !is.na(leftPluralityPercentage))
+
+  p1 <- ggplot(data = df,
+               mapping = aes(x=leftPluralityPercentage,y=Y)) + 
+    geom_point(alpha = 0.5) +
+    geom_vline(xintercept = 0, linetype = "dashed") +
+    facet_wrap(~country_name) +
+    labs(x = "Left Party Plurality Margin", y = ylabel) + 
+    xlim(-1,1) + ylim(-1,1) + 
+    theme_bw()
+  
+  p1
+}
+ggRD(df = elections, enppThreshold = 3.5, 
+     depvar = 'bond.market.response')
+ggsave('paper/figures/bond-market-response-faceted.png', width = 8, height = 5)
