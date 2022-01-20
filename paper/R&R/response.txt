@@ -1,7 +1,0 @@
-Reviewer 1 is skeptical of the results from Figure 6, noting that fragmentation increases over this time period. This is a miscommunication on our part, which we have clarified
-in the revised manuscript. All of the analyses in Section 4.4 (Figures 5 and 6) are restricted to low-fragmentation elections, so the varying effect sizes based on 
-ideological distance and time period are not due to a shifting composition of high or low fragmentation countries.
-
-Added a note on the changing number of elections over the course of Figure 6. As Reviewer 1 suspects, there are few low-fragmentation elections in our data between 1945 and 
-1975 (only 38 of the 179). Subdividing the data in this way further reduces statistical power, and so the results should be interpreted cautiously. We add a note to this effect
-on page 15.
